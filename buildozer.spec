@@ -10,5 +10,6 @@ orientation = portrait
 fullscreen = 1
 android.permissions = INTERNET
 window.clearcolor = (0.12, 0.12, 0.18, 1)
-android.api = 36
+android.api = 34
 android.minapi = 21
+
