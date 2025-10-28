@@ -36,10 +36,10 @@ jobs:
         run: buildozer android clean || true
 
       # Принимаем все лицензии и сразу ставим необходимые компоненты (aidl/build-tools/platform-tools/platforms)
-      - name: Accept all Android SDK licenses and install build-tools
+      - name: Accept Android SDK licenses and install tools
         run: |
           yes | ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;36.1.0" "platform-tools" "platforms;android-31" || true
+          ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;36.1.0" "platform-tools" "platforms;android-36" || true
 
       - name: Build the APK
         run: buildozer android debug
