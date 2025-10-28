@@ -10,23 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Accept all Android SDK licenses
-        run: |
-          yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses || true
-
-      - name: Install Android build-tools and platform-tools
-        run: |
-          ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "build-tools;36.1.0" "platform-tools" || true
-
-      - name: Build the APK
-        run: |
-          buildozer android debug
-
-      - name: Accept Android SDK licenses
-        run: |
-          yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses || true
-
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
@@ -44,12 +29,20 @@ jobs:
           echo "${HOME}/.local/bin" >> $GITHUB_PATH
 
       - name: Install Cython
+        run: pip3 install cython
+
+      - name: Accept all Android SDK licenses (after buildozer downloads SDK)
         run: |
-          pip3 install cython
+          # Ensure .buildozer created with SDK
+          buildozer android clean || true
+          yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses || true
+
+      - name: Install Android build-tools and platform-tools
+        run: |
+          ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "build-tools;36.1.0" "platform-tools" || true
 
       - name: Build the APK
-        run: |
-          buildozer android debug
+        run: buildozer android debug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
