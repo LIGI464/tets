@@ -1,0 +1,49 @@
+<MainScreen>:
+    name: "main"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 12
+        spacing: 12
+
+        MDLabel:
+            text: "Баланс: [b]{}[/b] монет".format(root.balance)
+            halign: "center"
+            markup: True
+            font_style: "H4"
+            theme_text_color: "Custom"
+            text_color: 1,0.85,0.4,1
+
+        MDLabel:
+            id: loot_text
+            text: "Открой кейс и выиграй скин Dota 2!"
+            halign: "center"
+            font_style: "Subtitle2"
+            size_hint_y: 0.20
+
+        GridLayout:
+            id: inventory_grid
+            cols: 4
+            size_hint_y: 0.6
+            spacing: 6
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 8
+            size_hint_y: 0.15
+
+            MDRaisedButton:
+                id: case_btn
+                text: "Открыть кейс"
+                md_bg_color: 0.2,0.4,0.85,1
+                on_release: root.open_case()
+
+            MDRaisedButton:
+                text: "Сортировать"
+                md_bg_color: 0.4,0.6,0.25,1
+                on_release: root.sort_inventory()
+
+            MDRaisedButton:
+                text: "ПОЛУЧИТЬ ДЕНЯКЬ ЗАРЕКЛАМУ"
+                md_bg_color: 0.85, 0.7, 0.10, 1
+                on_release: root.ad_money()
+                disabled: root.ad_cooldown > 0
