@@ -1,33 +1,23 @@
 [app]
-# Название приложения
 title = CaseDotka
-
-# Имя пакета (латиницей, без пробелов), например: casedotka
 package.name = casedotka
-
-# Домен вашего приложения, можно оставить так
 package.domain = org.casedotka
-
-# Версия приложения
-version = 1.0
-
-# Папка, где лежит main.py и mykv.kv (обычно это просто точка)
 source.dir = .
-
-# Включаемые расширения
 source.include_exts = py,kv,png,jpg,ttf,txt,md
-
-# Требуемые библиотеки для Python
+version = 1.0
 requirements = python3,kivy,kivymd,pyjnius
-
-# Ориентация экрана
 orientation = portrait
-
-# Полноэкранный режим
 fullscreen = 1
-
-# Минимальные разрешения (по желанию)
 android.permissions = INTERNET
-
-# Фоновый цвет
 window.clearcolor = (0.12, 0.12, 0.18, 1)
+android.api = 31
+android.ndk = 23b
+android.ndk_api = 21
+android.archs = arm64-v8a,armeabi-v7a
+# Icons: рекомендую использовать свои, либо закомментировать, если нет
+icon.filename = %(source.dir)s/icon.png
+
+# (Остальное можно оставить по умолчанию)
+[buildozer]
+log_level = 2
+warn_on_root = 1
