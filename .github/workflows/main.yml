@@ -31,19 +31,15 @@ jobs:
       - name: Install Cython
         run: pip3 install cython
 
-      # Подготовить .buildozer, чтобы SDK успел скачаться и появился sdkmanager
+      # Подготовить .buildozer и SDK
       - name: Prepare Android SDK
         run: buildozer android clean || true
 
-      # Теперь будет sdkmanager, принимаем все лицензии (решает ошибку)
-      - name: Accept all Android SDK licenses
+      # Принимаем все лицензии и сразу ставим необходимые компоненты (aidl/build-tools/platform-tools/platforms)
+      - name: Accept all Android SDK licenses and install build-tools
         run: |
           yes | ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
-      # Устанавливаем build-tools и platform-tools
-      - name: Install Android build-tools and platform-tools
-        run: |
-          ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;36.1.0" "platform-tools" || true
+          ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;36.1.0" "platform-tools" "platforms;android-31" || true
 
       - name: Build the APK
         run: buildozer android debug
